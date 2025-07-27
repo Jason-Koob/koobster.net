@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Projects</title>
+
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar will be populated by scripts.js -->
+  <nav id="navbar"></nav>
+  <h1>Projects</h1>
+
+  <h2><a href="https://github.com/spearsj2/AdWard" target="_blank" rel="noopener noreferrer" id="project">AdWard (Senior Capstone)</a> - Python</h2>
+
+  <img id="site-logo" src="images/black_transparent_Adward.png" alt="AdWard logo"/>
+
+  <p>AdWard is a DNS-based ad blocker that I created to block ads on an internal level. It works by intercepting DNS queries and returning a blank response for known ad domains, effectively preventing ads from being loaded in browsers and applications.</p>
+  <p>I worked with a team of classmates on this for a school project. We aimed to create a user friendly ad blocking system that anybody can use regardless of technical skill. 
+    We wrote this project in Python and used libraries such as <a href="https://pypi.org/project/dnslib/" target="_blank" rel="noopener noreferrer">dnslib</a>
+     for the functionality of the program and <a href="https://doc.qt.io/qtforpython-6/#" target="_blank" rel="noopener noreferrer">QT</a> for the front-end of the program. 
+     This project took weeks to create and flesh out. We created graphs for documenting how it works for a panel of judges. </p>
+  <p>We used various block lists to enhance the effectiveness of the ad blocker such as <a href="https://github.com/StevenBlack/hosts" target="_blank" rel="noopener noreferrer">StevenBlack's block list</a>.
+     We also implemented a feature that allows users to add their own custom block lists and later implemented an allow list to remove addresses from said block lists if the user wants to visit a site that was already blocked.</p>
+  <p>I also created a <a href="https://github.com/spearsj2/AdWard/blob/main/etc/adward.conf" target="_blank" rel="noopener noreferrer">static configuration file</a> 
+    that allows users to easily modify the DNS port, backup DNS source, and query logging to an internal file. I really enjoyed this part as it is a direct 1:1 map for variables stored in a text file, to variables used in the program.</p>
+
+  <pre>Adward Configuration File<code>
+#  _______     __ ________                __ 
+# |   _   |.--|  |  |  |  |.---.-.----.--|  |
+# |       ||  _  |  |  |  ||  _  |   _|  _  |
+# |___|___||_____|________||___._|__| |_____|
+                                           
+# Adward DNS Server Configuration File.
+# This file is used to configure the Adward DNS Server. 
+# Below are the default values for the Adward DNS Server. You can change these values to suit your needs.
+
+# The port on which the DNS server will listen for DNS requests. The defualt is port 53 as that is assigned to DNS by IANA.
+dnsPort=53
+
+# These are the variables to be used for the web UI.
+# The port on which the web UI will be hosted. The default is port 7000.
+# webUIPort=7000
+
+# The username and password to be used to access the web UI for Adward.
+# webUIUsername=admin
+# webUIPassword=adward
+
+# The backup DNS source to be used in case the primary DNS source fails. This can be changed to suite your liking. The default is Google's public DNS server (8.8.8.8).
+# This is accept any IP address or domain name. We recommend using one of the following:
+
+# Google Public DNS: 8.8.8.8
+# Cloudflare DNS: 1.1.1.1
+# OpenDNS: 208.67.222.222
+# Quad9: 9.9.9.9
+# Comodo Secure DNS: 8.26.56.26
+
+# All you would need to do is change the value of dnsAlternative to the IP address of the DNS server you would like to use.
+dnsAlternative=8.8.8.8
+
+# This is used to enable or disable logging of DNS requests. The default is True.
+loggingEnabled=True
+
+# The path to the log file where the DNS requests will be logged. The default is ../logs/dns_requests.csv.
+# The logs are stored in CSV format for further analysis in a web UI. 
+logFile=../logs/dns_requests.csv
+
+# This is the path to the directory where the block lists are stored. The default is ../etc/block_lists.
+# The block lists are used to block certain domains from being accessed by the DNS server.
+blockListDir=../etc/block_lists
+
+# This is the path to the file where the white lists are stored. The default is ../etc/allow_list.txt.
+# The white lists are used to allow certain domains to be accessed by the DNS server.
+allowListFile=../etc/allow_list.txt
+  </code></pre>
+
+  <p>Overall, this project was a great learning experience and helped me improve my skills in Python programming, as well as my ability to work collaboratively 
+    in a team setting. This project took me weeks to finish as we encountered various challenges along the way, from learning how to create a user-friendly front-end, to capturing DNS queries and returning a NXDomain response in place of the actual DNS response.</p>
+
+  <h2><a href="https://github.com/Jason-Koob/NASA-APOD-Script" target="_blank" rel="noopener noreferrer" id="project">NASA Picture Downloading Script</a> - Python</h2>
+  <p>This script allows users to download images from <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" rel="noopener noreferrer">NASA's Astronomy Picture of the Day (APOD)</a> API. It fetches the daily image and saves it locally, making it easy to keep a collection of cool space images.</p>
+  <p>In this project, I was first introduced into using APIs to call out to an external source and use the returned data. I learned how to handle JSON data such as the HD image returned and some additional data.</p>
+  <p>Additionally, I also got to work with managing file downloads in this project, I wanted to name the downloaded image as the the date that NASA posted it, followed by title of the image.</p>
+  
+  <p>Here is the code I used to call the API and get the HD image. I found the default Demo API key to be sufficient for my needs but if you want to modify this script 
+    to get lots of images quickly, you'll need to get your own API key from NASA <a href="https://api.nasa.gov/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+  <pre>Request to APOD's API<code>
+# Segmenting the API call URL
+baseURL = "https://api.nasa.gov/planetary/apod"
+apod_key_declare = "?api_key="
+apod_key = "DEMO_KEY"
+
+# 'additional' would go between baseURL and apod_key_declare
+response = requests.get(baseURL + apod_key_declare + apod_key)
+print(baseURL + apod_key_declare + apod_key + "\n")
+
+...
+  </code></pre>
+
+  <p>Here is the code I used to download the image. I used an if statement to check if the response status code is 200 before proceeding with the download. 
+    If it is, then it saves the image using the date and title from the API response and replaces spaces in the image name with dashes. It also saves the image to a folder and writes any additional imformation to a JSON file.</p>
+
+  <pre>Handling the API Response<code>
+if response.status_code == 200:
+    picture_json = response.json()
+    hd_image_url = picture_json['hdurl']
+    file_name = picture_json['title'].replace(" ", "_").replace(":", "_").replace("-", "_")
+    date_file_name = picture_json['date'] + "_" + file_name + '.png'
+    image_path = '../Pictures/' + date_file_name
+    log_path = '../APOD_LISTINGS.json'
+    # Download the HD image
+    image_response = requests.get(hd_image_url)
+    if image_response.status_code == 200:
+        # Save the image
+        with open(image_path, 'wb') as image_file:
+            image_file.write(image_response.content)
+        print("Image downloaded successfully:\n" + date_file_name)
+
+        # Log the JSON data to the APOD_LISTINGS.json file
+        with open(log_path, 'a') as log_file:
+            log_file.write(str(response.text))
+    else:
+        print("Failed to download image:", image_response.status_code)
+else:
+    print("Failed to fetch APOD data:", response.status_code)
+  </code></pre>
+
+  <p> Outside of this project, I created a scheduled task to run this program daily after NASA posted the daily photo, then saving the photo in a folder that I would rotate through as by background/wallpaper on my computer.</p>
+
+  <h2><a href="https://github.com/Jason-Koob/Bash---Sort-by-Extension-Script/tree/main" target="_blank" rel="noopener noreferrer" id="project">Extension Sorting Script</a> - Bash</h2>
+  <p>This script organizes and sorts file extensions based on user-defined criteria. It helps users manage their extensions more effectively, ensuring they can find and use the right tools for their needs.</p>
+  <p>I made this script during a bash lab. The goal of the script is to look at all files in the given directory, and move them to their respective folders based on their file extensions.</p>
+  <p>The first thing I wanted to do with this bash script is create flags for all the different arguments that can be passed into the script. Below are the possible arguments that can be passed into the script. 
+    The only required argument is the input directory (f argument).</p>
+  <p>In this script, I used the <code>getopts</code> command to parse command line arguments. This allows users to specify options such as the input directory, miscellaneous directory, log file path, and extension length.</p>
+
+  <li> -h : Display this information on how to use the script.</li>
+  <li> -f <path_to_directory>: Input for the directory to be sorted.</li>
+  <li> -m <path_to_misc_directory>: Input for the miscellaneous directory to be sorted.</li>
+  <li> -l <log_file_path>: Directory for the log file output. This enables logging.</li>
+  <li> -n <log_file_name>: Input for the name of the log file.</li>
+  <li> -x <misc_extension_length>: Input for the extension length to send to the Misc directory. The default limit is 5.</li>
+
+  <pre>Declaring Arguments<code>
+while getopts ":h:f:m:l:n:x:" opt; do
+    case $opt in
+        h) # option h - Display controls for using the program
+            controls
+            ;;
+
+        f) # option f - Input directory for files to be sorted
+            fileDir=$OPTARG
+
+                # Check if directory does not exist
+                if [[ ! -d $fileDir ]]; then
+                    echo "$fileDir does not exist"
+                fi
+            ;;
+    
+...
+  </code></pre>
+
+  <p>Once all of the argument requirements are satisfied, the script then goes through the process of checking to see if all of the given directories exist and are accessible. If any of the directories are missing or inaccessible,
+     the script will make them for you.</p>
+
+  <p>I wanted to log every action taken by the script when something is created or moved. I did this using a function called <code>log</code>. This function first checks to see if logging is enabled using the 
+    <code>log()</code> boolean. If this boolean is true, then it will log the command to the log file:</p>
+
+  <pre>Logging Function<code>
+function log() {
+    local logBool=$1 # Logging enabled
+    local cmd=$2 # Command to run
+    local log_output_file=$3 # Where to log the command
+
+    if [ "$logBool" -eq 1 ]; then
+        $cmd
+        $cmd >> "$logPath/$logFile" # Execute the command and write output to log file
+    else
+        # Execute the command without logging
+        $cmd
+    fi
+}
+  </code></pre>
+  <p>After collecting arguments, the script will then go through all of the files in the input directory and check their extensions. If the extension is longer than the given length, it will be moved to the Misc directory. 
+    If the extension is shorter than or equal to the given length, it will be moved to a directory with the same name as the extension.</p>
+  <p>Below is the code I used to check the extension length and move the files. It looks at each file in the input directory and determines its extension, then it checks if it should go to the miscellaneous directory by checking
+     the amount of characters in the extension. If this is done, then it is logged to the log file.</p>
+  <p>Note: The script uses a function called <code>log</code> to log messages to the log file. This function is defined earlier in the script.</p>
+
+  <pre>Extension Sorting Logic<code>
+# Loop through each file in the checking directory
+for file in "$fileDir"/*; do
+    if [ -f "$file" ]; then
+        extension="${file##*.}"
+
+        # Choose where the extension directories go
+        extensionDir=$fileDir/$extension
+
+        #Check if the extension is over 4 characters
+        if [ ${#extension} -gt $extensionLength ]; then
+            log $logBool "echo ====================================" "$logPath/$logFile"
+            log $logBool "echo Moving '$file' to the '$miscDir' folder" "$logPath/$logFile"
+            mv "$file" "$miscDir"
+        else
+        # Check if extension directory is created, if not, create it
+            if [ ! -d "$extensionDir" ]; then
+                log $logBool "echo ====================================" "$logPath/$logFile"
+                log $logBool "echo Creating the directory: $extension" "$logPath/$logFile"
+                mkdir "$extensionDir"
+            fi
+            
+            # Move the remaining files to their correct folder
+            log $logBool "echo ====================================" "$logPath/$logFile"
+            log $logBool "echo File Path: '$file'" "$logPath/$logFile"
+            log $logBool "echo File Extension: $extension" "$logPath/$logFile"
+            log $logBool "echo Moving it to: '$fileDir/$extension' directory" "$logPath/$logFile"
+            mv "$file" "$extensionDir"
+        fi
+    fi
+done;
+  </code></pre>
+
+  <p>Overall, this script is a great way to organize files based on their extensions and can be easily modified to suit different needs. It is a simple yet effective way to manage files in a directory.
+  I got to work with bash scripting when creating this project, which has helped me become better at traversing Linux in my daily life.</p>
+
+  <h2><a href="https://github.com/Jason-Koob/Windows-Backup-Script" target="_blank" rel="noopener noreferrer" id="project">Windows Backup Script</a> - Powershell</h2>
+  <p>This script automates the process of backing up entire drives. It allows users to schedule backups, choose specific files or folders to include, and easily restore files when needed.
+    This script requires the target drive, that is being backed, the destination drive, where the backup will be stored, and an confirmation to run the <code>wbadmin start backup</code> command.
+  </p>
+  <p>The start of the script assigns the arguments as strings so they can be used later in the script. They are not required to be passed in when running the script, but if they are not passed in, the script will prompt the user for them.</p>
+  <p>The script will then check if it is running with administrative privileges, and if not, it will restart itself with elevated permissions. This is necessary for accessing certain system files and directories.
+    If they are not given when the script is run, then the script will prompt the user for them when the script is run.</p>
+
+  <pre>Get arguments and restart as Administrator<code>
+
+# Windows Backup script
+    param (
+    [Parameter(Mandatory = $false)]
+    [string]$destDrive,
+
+    [Parameter(Mandatory = $false)]
+    [string]$targetDrive,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$confirm
+)
+
+# Relaunch script as admin if not already elevated
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Output "Restarting script with administrative privileges..."
+
+    # Build argument list dynamically
+    $argList = @()
+    if ($destDrive)    { $argList += "-destDrive `"$destDrive`"" }
+    if ($targetDrive)  { $argList += "-targetDrive `"$targetDrive`"" }
+    if ($confirm)      { $argList += "-confirm" }
+
+    Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -File `"$PSCommandPath`" $($argList -join ' ')" -Verb RunAs
+    exit
+}
+
+Write-Output "Windows Backup Script"
+
+# Prompt for missing parameters
+if (-not $targetDrive) {
+    $targetDrive = Read-Host "What drive is being backed up?"
+}
+
+if (-not $destDrive) {
+    $destDrive = Read-Host "Where is the backup being stored?"
+}
+
+  </code></pre>
+
+  <p>Next we will need to verify that the user input is a valid drive letter. We can do this by trimming the colons from the drive letters. 
+    Then we will need to reformat it to the <code>:\</code> format so that it can be used as a proper path to the drive. 
+    We then need to validate that the drive letter exists on the system. We can do this by using the <code>Get-PSDrive</code> cmdlet to check for the existence of the drive.</p>
+
+  <pre>Sanitize the user input, reformat, and verify the drives exist<code>
+
+# Sanitize drive letters (remove colons)
+$targetDrive = $targetDrive.TrimEnd(":")
+$destDrive   = $destDrive.TrimEnd(":")
+
+# Construct proper volume paths
+$targetPath = "$targetDrive`:\"
+$destPath   = "$destDrive`:\"
+
+# Validate that the target drive exists
+if (Get-PSDrive -Name $targetDrive -ErrorAction SilentlyContinue) {
+    Write-Output "Drive $targetDrive exists."
+} else {
+    Write-Output "Drive $targetDrive does not exist."
+    exit
+}
+
+# Validate that the dest drive exists
+if (Get-PSDrive -Name $destDrive -ErrorAction SilentlyContinue) {
+    Write-Output "Drive $destDrive exists."
+} else {
+    Write-Output "Drive $destDrive does not exist."
+    exit
+}
+
+  </code></pre>
+
+  <p>Now that we have the drives validated, we can proceed to show the drive size and get confirmation from the user before proceeding with the backup. 
+    We will use the <code>Get-PSDrive</code> cmdlet to get the size of the target drive and the destination drive. 
+    We will also show the estimated backup size and get confirmation from the user before proceeding with the backup.</p>
+
+  <pre>Show the drive size and get confirmation<code>
+
+# Get drive information for calculations
+$targetDriveInfo = Get-PSDrive $targetDrive
+$destDriveInfo = Get-Volume -DriveLetter $destDrive
+$backupSizeGB = [math]::Round($targetDriveInfo.Used / 1GB, 2)
+
+# Show estimated backup size
+Get-PSDrive $targetDrive | Format-Table `
+  @{Label = "Target Drive Letter"; Expression = { $_.Name + ":" } }, `
+  @{Label = "Backup Size (GB)"; Expression = { [math]::Round($_.Used / 1GB, 2) } }
+
+# Show destination drive stats
+Get-Volume -DriveLetter $destDrive | Format-Table `
+  @{Label = "Destination Drive Letter"; Expression = { $_.DriveLetter + ":" } }, `
+  @{Label = "Available (GB)"; Expression = { [math]::Round($_.SizeRemaining / 1GB, 2) } }, `
+  @{Label = "Total (GB)"; Expression = { [math]::Round($_.Size / 1GB, 2) } }, `
+  @{Label = "Space After Backup (GB)"; Expression = { [math]::Round(($_.Size - $backupSizeGB * 1GB) / 1GB, 2) } }
+
+# Confirmation
+if (-not $confirm) {
+    $response = Read-Host "Are you sure you want to do this? It may take a while. (Y/N)"
+    if ($response -ne "Y") {
+        Write-Output "Backup cancelled."
+        exit
+    }
+} else {
+    Write-Output "Confirmation flag detected. Proceeding with backup..."
+}
+
+  </code></pre>
+
+  <p>Below is an example of the script. The script shows the drives exist, this could be hidden but why not. Then it shows the estimated backup size and gets confirmation from the user before proceeding with the backup.</p>
+
+  <pre>Example of the script<code>
+
+Windows Backup Script
+What drive is being backed up?: C
+Where is the backup being stored?: E
+Drive C exists.
+Drive E exists.
+
+Target Drive Letter Backup Size (GB)
+------------------- ----------------
+C:                            496.74
+
+Destination Drive Letter Available (GB) Total (GB) Space After Backup (GB)
+------------------------ -------------- ---------- -----------------------
+E:                               585.09     931.28                  434.54
+
+  </code></pre>
+
+  <p>After confirming the backup, the script will proceed to copy the files from the target drive to the destination drive. 
+    It will display progress information as it goes on. I liked making this script as I think scripting in PowerShell is a powerful way to automate tasks in Windows.</p>
+
+  <!-- Link to external JS file -->
+  <script src="scripts.js"></script>
+</body>
+</html>

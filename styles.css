@@ -1,0 +1,348 @@
+/* === Base Styles === */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eeeeee;
+  color: #222;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, p,
+#navbar, #navbar a, #darkModeToggle {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* === Headings === */
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 40px 0 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin: 40px 0 20px;
+  padding: 0 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  position: relative;
+}
+
+h2::after,
+.article-preview::after {
+  content: "";
+  display: block;
+  margin: 8px auto 0;
+  max-width: 800px;
+  width: 100%;
+  padding: 0 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+body.dark-mode .article-preview::after,
+body.dark-mode h2::after {
+  border-color: #555;
+}
+
+#project,
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  text-transform: underline;
+  margin: auto;
+}
+
+a.img-link {
+  display: inline-block;
+}
+
+/* === Images === */
+img {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+}
+
+/* === Paragraphs === */
+p {
+  font-size: 1.125rem;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  padding: 0 20px;
+  letter-spacing: 0.5px;
+}
+
+/* === List Items (same as paragraphs) === */
+li {
+  font-size: 1.125rem;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  padding: 0;
+  letter-spacing: 0.5px;
+  list-style-position: inside;
+}
+
+/* === Navbar === */
+#navbar {
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  position: relative;
+  height: 64px; /* Added explicit height */
+}
+
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  height: 100%; /* Added to match parent height */
+}
+
+.nav-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0;
+  align-items: center;
+  height: 100%; /* Added to match parent height */
+}
+
+.nav-content li {
+  display: flex;
+  align-items: center;
+  height: 100%; /* Added to match parent height */
+  margin: 0; /* Override global li margin */
+  max-width: none; /* Override global li max-width */
+  text-align: center; /* Override global li text-align */
+  list-style: none; /* Ensure no list markers */
+}
+
+/* Styling for navbar links */
+.nav-content a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  height: 64px; /* Added explicit height to match navbar */
+  padding: 0 20px; /* Changed from padding: 20px to horizontal only */
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: white;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+}
+
+/* Dark mode toggle positioned separately */
+#darkModeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px; /* Added explicit height to match navbar */
+  padding: 0 20px; /* Changed from padding: 20px to horizontal only */
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: white;
+  background: transparent;
+  border: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-content a:hover {
+  background-color: #555;
+}
+
+#darkModeToggle:hover {
+  background-color: #555;
+}
+
+/* === Dark Mode navbar styles === */
+body.dark-mode #navbar {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode #navbar a {
+  color: #ddd;
+}
+
+body.dark-mode #darkModeToggle {
+  color: #ddd;
+}
+
+body.dark-mode #navbar a:hover {
+  background-color: #333;
+}
+
+body.dark-mode #darkModeToggle:hover {
+  background-color: #333;
+}
+
+/* === Article Preview === */
+.article-preview {
+  font-size: 2rem;
+  text-align: center;
+  margin: 40px 0 20px;
+  padding: 0 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  position: relative;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.article-preview:hover {
+  color: #000;
+}
+
+.article-preview::after {
+  content: "";
+  display: block;
+  margin: 8px auto 0;
+  width: 60%;
+  border-bottom: 2px solid #ccc;
+}
+
+.article-preview h2 a {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 2px solid #444;
+  border-radius: 4px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: inherit;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.article-preview h2 a:hover {
+  background-color: #e0e0e0;
+  color: #000;
+  border-color: #000;
+}
+
+/* === Dark Mode === */
+body.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+body.dark-mode h1,
+body.dark-mode h2 {
+  color: #f9f9f9;
+}
+
+body.dark-mode p,
+body.dark-mode li {
+  color: #ddd;
+}
+
+body.dark-mode #navbar {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode #navbar a,
+body.dark-mode #darkModeToggle {
+  color: #f9f9f9;
+}
+
+body.dark-mode #navbar a:hover,
+body.dark-mode #darkModeToggle:hover {
+  background-color: #333;
+}
+
+body.dark-mode .article-preview::after {
+  border-color: #555;
+}
+
+body.dark-mode .article-preview h2 a {
+  border-color: #ddd;
+  color: #f9f9f9;
+}
+
+body.dark-mode .article-preview h2 a:hover {
+  background-color: #2a2a2a;
+  color: #fff;
+  border-color: #fff;
+}
+
+/* === Code === */
+pre {
+  background-color: #f4f4f4;
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 6px;
+  max-width: 800px;
+  overflow-x: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  white-space: pre;
+}
+
+pre code {
+  display: block;
+  font-family: Consolas, Monaco, 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+  background-color: transparent;
+}
+
+code {
+  background-color: #f4f4f4;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  color: #333;
+  font-size: 0.95em;
+}
+
+/* === Dark Mode Code === */
+body.dark-mode pre {
+  background-color: #1e1e1e;
+  box-shadow: none;
+}
+
+body.dark-mode pre code,
+body.dark-mode code {
+  color: #d4d4d4;
+  background-color: #1e1e1e;
+}
